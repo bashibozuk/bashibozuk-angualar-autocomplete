@@ -1,0 +1,14 @@
+{
+  "name": "bashibozuk-angualar-autocomplete",
+  "authors": [
+    "Vasil Atanasov <vsatanasov@gmail.com>"
+  ],
+  "description": "autocomplete directive",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "dependencies": {
+    "angular": "angularjs#^1.5.8",
+    "bootstrap": "^3.3.7"
+  }
+}
