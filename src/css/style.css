@@ -1,5 +1,6 @@
 .bbz-autocomplete-wrapper {
     position: relative;
+    z-index: 1000;
 }
 
 .bbz-sugestions-wrapper {

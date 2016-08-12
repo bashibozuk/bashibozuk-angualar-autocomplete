@@ -9,19 +9,24 @@ angular.module('bbzAutocomplete', [])
                 field: '@field',
                 url: '@url',
                 minLen: '@minLen',
-                callback: '&callback',
-                selectedField: '@selectedField',
                 data: '=data'
             },
             template: '<span class="bbz-autocomplete-wrapper">' +
-                '<input class="form-control" ng-model="selection" ng-keyup="onInput()"> ' +
-                '<ul class="bbz-sugestions-wrapper list-group">' +
-                    '<li ng-repeat="suggestion in suggestions" ng-click="onSelect(suggestion)" class="list-group-item">' +
-                        '<span ng-if="field">{{suggestion[field]}}</span>' +
-                        '<span ng-if="!field">{{suggestion}}</span>' +
-                    '</li>' +
-                '</ul>' +
+            '<input class="form-control" ng-model="selection" ng-keyup="onInput()" ng-blur="console.log(1234)"> ' +
+            '<ul class="bbz-sugestions-wrapper list-group">' +
+            '<li ng-repeat="suggestion in suggestions" ng-click="onSelect(suggestion)" class="list-group-item">' +
+            '<span ng-if="field">{{suggestion[field]}}</span>' +
+            '<span ng-if="!field">{{suggestion}}</span>' +
+            '</li>' +
+            '</ul>' +
             '</span>',
+            link: function (scope, element) {
+                setTimeout(function () {
+                    var $list = $(element).find('.bbz-sugestions-wrapper');
+                    $list.css('width', $(element).find('input').width() + 'px');
+                }, 10);
+
+            },
             controller: function ($scope) {
                 $scope.suggestions = [];
 
@@ -44,6 +49,7 @@ angular.module('bbzAutocomplete', [])
                     $http.get(url).then(function (response) {
                         $scope.suggestions.splice(0, $scope.suggestions.length);
                         for (var i = 0; i < response.data.length; i++) {
+                            console.log(response.data[i]);
                             $scope.suggestions.push(response.data[i]);
                         }
                     })
@@ -51,7 +57,7 @@ angular.module('bbzAutocomplete', [])
 
                 $scope.onSelect = function (data) {
 
-                    $scope.selection = $scope.selectedField ? data[$scope.selectedField]: data;
+                    $scope.selection = $scope.field ? data[$scope.field]: data;
                     $scope.data =  data;
                     $scope.suggestions.splice(0, $scope.suggestions.length);
 
