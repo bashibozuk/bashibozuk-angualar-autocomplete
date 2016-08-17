@@ -17,7 +17,7 @@ angular.module('bbzAutocomplete', [])
                 data: '=data'
             },
             template: '<span class="bbz-autocomplete-wrapper">' +
-            '<input class="form-control" ng-model="selection" ng-keyup="onInput()" ng-blur="onBlur()" ng-keydown="onKeyDown($event)"> ' +
+            '<input class="form-control" ng-model="selection" ng-keyup="onInput()" ng-blur="onBlur()" ng-keydown="onKeyDown($event)" placeholder="Type For Suggestions"> ' +
             '<ul class="bbz-sugestions-wrapper list-group">' +
             '<li ng-repeat="suggestion in suggestions" ng-click="onSelect(suggestion)" class="list-group-item" ng-class="{active: $index === selectedIndex}">' +
             '<span ng-if="field">{{suggestion[field]}}</span>' +
