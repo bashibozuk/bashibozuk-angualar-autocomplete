@@ -22,7 +22,7 @@
 </head>
 <body ng-app="autocomplete">
     <div ng-controller="DemoController">
-        <form action="" role="form">
+        <form action="" role="form" onsubmit="return false;">
             <div class="form-group">
                 <bbz-autocomplete url="server.php" data="data.selection"></bbz-autocomplete>
             </div>
