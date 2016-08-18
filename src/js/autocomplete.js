@@ -14,7 +14,8 @@ angular.module('bbzAutocomplete', [])
                 field: '@field',
                 url: '@url',
                 minLen: '@minLen',
-                data: '=data'
+                data: '=data',
+                selection: '=selection'
             },
             template: '<span class="bbz-autocomplete-wrapper">' +
             '<input class="form-control" ng-model="selection" ng-keyup="onInput()" ng-blur="onBlur()" ng-keydown="onKeyDown($event)" placeholder="Type For Suggestions"> ' +
@@ -77,7 +78,6 @@ angular.module('bbzAutocomplete', [])
                 };
 
                 $scope.onSelect = function (data) {
-
                     $scope.selection = $scope.field ? data[$scope.field]: data;
                     $scope.data =  data;
                     $scope.suggestions.splice(0, $scope.suggestions.length);
