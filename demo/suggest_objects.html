@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Angular Autocomplete</title>
+    <title>Angular Autocomplete - Suggest Objects</title>
     <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="../src/css/style.css">
@@ -14,21 +14,25 @@
 
         angular.module('autocomplete', ['bbzAutocomplete']).controller('DemoController', function ($scope) {
             $scope.data = {
-                selection : ''
+                selection : 'asdf'
+            };
+
+            $scope.model = {
+                data: null
             };
         })
 
     </script>
 </head>
 <body ng-app="autocomplete">
-    <div ng-controller="DemoController">
-        <form action="" role="form" onsubmit="return false;">
-            <div class="form-group">
-                <bbz-autocomplete url="server.php" selection="data.selection"></bbz-autocomplete>
-            </div>
-            {{data}}
-        </form>
+<div ng-controller="DemoController">
+    <form action="" role="form" onsubmit="return false;">
+        <div class="form-group">
+            <bbz-autocomplete url="server-suggest-objects.php" data="model.data" selection="model.data.name" field="name"></bbz-autocomplete>
+        </div>
+        {{model.data}}
+    </form>
 
-    </div>
+</div>
 </body>
 </html>

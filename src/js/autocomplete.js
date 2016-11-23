@@ -3,7 +3,7 @@
  */
 
 angular.module('bbzAutocomplete', [])
-    .directive('bbzAutocomplete', function($http) {
+    .directive('bbzAutocomplete', function($http, $timeout) {
 
         var ARROW_DOWN_KEY = 40;
         var ARROW_UP_KEY = 38;
@@ -14,8 +14,8 @@ angular.module('bbzAutocomplete', [])
                 field: '@field',
                 url: '@url',
                 minLen: '@minLen',
-                data: '=data',
-                selection: '=selection'
+                data: '=',
+                selection: '='
             },
             template: '<span class="bbz-autocomplete-wrapper">' +
             '<input class="form-control" ng-model="selection" ng-keyup="onInput()" ng-blur="onBlur()" ng-keydown="onKeyDown($event)" placeholder="Type For Suggestions"> ' +
@@ -26,14 +26,15 @@ angular.module('bbzAutocomplete', [])
             '</li>' +
             '</ul>' +
             '</span>',
-            link: function (scope, element) {
-                setTimeout(function () {
+            link: function (scope, element, attrs) {
+                $timeout(function () {
                     var $list = $(element).find('.bbz-sugestions-wrapper');
                     $list.css('width', $(element).find('input').width() + 'px');
                 }, 10);
-
+                scope.attributes = attrs;
             },
-            controller: function ($scope, $timeout) {
+            controller: function ($scope) {
+
                 $scope.selectedIndex = null;
                 $scope.suggestions = [];
                 $scope.lastInput = null;
@@ -78,8 +79,12 @@ angular.module('bbzAutocomplete', [])
                 };
 
                 $scope.onSelect = function (data) {
-                    $scope.selection = $scope.field ? data[$scope.field]: data;
-                    $scope.data =  data;
+                    if (typeof $scope.attributes.selection !== 'undefined') {
+                        $scope.selection = $scope.field ? data[$scope.field]: data;
+                    }
+                    if (typeof $scope.attributes.data !== 'undefined') {
+                        $scope.data =  data;
+                    }
                     $scope.suggestions.splice(0, $scope.suggestions.length);
                     $scope.selectedIndex = null;
                 };
